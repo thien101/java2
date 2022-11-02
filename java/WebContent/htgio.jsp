@@ -124,7 +124,7 @@
 	   					<input type="text" value="true" name="xoaNsach" style="display: none;"></form>
 	   				<form action="action_gh?xoaAll=true" method="post" style="display: inline-block;">
 	   					<button style="margin: 20px 30px 0;">Trả lại toàn bộ</button></form>
-	   				<form action="htsach" style="display: inline-block;">
+	   				<form action="htsach?all=true" method="post" style="display: inline-block;">
 	   					<button style="margin: 20px 30px 0;">Tiếp tục mua hàng</button></form>
 	   				<form action="hoadon" method="post" style="display: inline-block;">
 	   					<button style="margin-top: 20px">Thanh Toán</button></form>

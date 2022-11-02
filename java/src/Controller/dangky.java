@@ -1,7 +1,6 @@
 package Controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,19 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.khachhangbean;
 import bo.khachhangbo;
 
 /**
- * Servlet implementation class ktdn
+ * Servlet implementation class dangky
  */
-@WebServlet("/ktdn")
-public class ktdn extends HttpServlet {
+@WebServlet("/dangky")
+public class dangky extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ktdn() {
+    public dangky() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,38 +33,29 @@ public class ktdn extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String un = request.getParameter("txtun");
-		String pass = request.getParameter("txtpass");
-		/*ArrayList<String> arr = new ArrayList<>();
-		arr.add(un);
-		arr.add(pass);*/
-		
-		if(un != null && un != null) {
-			//Tao doi tuong session
-			HttpSession ss = request.getSession();
-			
-			//Neu chua tao session
-			if(ss.getAttribute("dn") == null ) {
-				ss.setAttribute("dn", "");
-			}
-			
+		HttpSession ss = request.getSession();
+		if(ss.getAttribute("dn") == null ) {
+			ss.setAttribute("dn", "");
+		}
+		if(request.getParameter("tendn") != null) {
 			khachhangbo khbo = new khachhangbo();
-			if(khbo.ktdn(un, pass) != null) {
-				ss.setAttribute("dn", khbo.ktdn(un, pass));
-				RequestDispatcher rd = request.getRequestDispatcher("htsach");
-				rd.forward(request, response);
-			} else {
-				request.setAttribute("Loi", "Sai tai khoan hoac mat khau");
-				RequestDispatcher rd = request.getRequestDispatcher("baitap12_09.jsp");
-				rd.forward(request, response);
-			}
-			
-			//Chuyen tiep ve trang htsach.jsp
+			String tendn =  request.getParameter("tendn");
+			String pass = request.getParameter("pass");
+			String hoten = request.getParameter("hoten");
+			String diachi = request.getParameter("diachi");
+			String sodt = request.getParameter("sodt");
+			String email = request.getParameter("email");
+			khachhangbean kh = new khachhangbean(tendn, pass, hoten, diachi, sodt, email);
+			khbo.them_kh(kh);
+			ss.setAttribute("dn", kh);
+			RequestDispatcher rd = request.getRequestDispatcher("htsach");
+			rd.forward(request, response);
 			
 		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("baitap12_09.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("dangky.jsp");
 			rd.forward(request, response);
 		}
+		
 		
 		
 	}

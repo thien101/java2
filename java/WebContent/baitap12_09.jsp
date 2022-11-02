@@ -11,14 +11,23 @@
 </head>
 
 <body>
-	<form action="ktdn" method="post">
+	<%
+	String error = (request.getAttribute("Loi") != null ? (String)request.getAttribute("Loi"): "");
+	%>
+	<form style="display: inline-block; action="ktdn" method="post">
        un= <input name="txtun" type="text" value="" placeholder = "Nhap un"> <br>
-       pass= <input name="txtpass" type="password" value="" > <br>
+       pass= <input name="txtpass" type="password" value="" style="display: inline-block;"> <br>
        <input name="butdn" type="submit" value="login">
        <%if (request.getParameter("kt")!= null){
     	   out.print("Dang nhap sai");
        } %>
     </form>
+    <form style="display: inline-block; action="ktdn" method="post">
+       <input style="display: inline-block; name="butdn" type="submit" value="register" >
+    </form>
+    <h5><%=(error != "") ? error : ""%></h3>
+    
+    
 
 </body>
 </html>

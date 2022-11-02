@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.loaibean;
 import bean.sachbean;
@@ -38,18 +39,46 @@ public class htsach extends HttpServlet {
 		loaibo lbo = new loaibo();
 		ArrayList<loaibean> dsloai = lbo.getloai();
 		request.setAttribute("dsloai", dsloai);
-
+		
 		sachbo sbo = new sachbo();
-		ArrayList<sachbean> dssach = sbo.getsach();
-		String mls = request.getParameter("ml");
-		String tk = request.getParameter("timkiem");
-		if (mls != null) {
-			dssach = sbo.timkiem(dssach, mls);
-		} else if (tk != null) {
-			dssach = sbo.timkiem(dssach, tk);
+		ArrayList<sachbean> dssach = new ArrayList<sachbean>();
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("dssach") == null || request.getParameter("all") != null) {
+			dssach = sbo.getsach();
+			session.setAttribute("dssach", dssach);
 		}
-		request.setAttribute("dssach", dssach);
+		String mls = request.getParameter("ml");
+		String tk =request.getParameter("timkiem");
+		if (mls != null) {
+			  dssach =sbo.timkiem(dssach, mls);
+			  session.setAttribute("dssach", dssach);
+		} else if (tk != null) { 
+			  dssach =sbo.timkiem(dssach, tk);
+			  session.setAttribute("dssach", dssach);
+		}
+		//session.setAttribute("dssach", dssach);
+		
+		
+		
+		
+//		  String mls = request.getParameter("ml");
+//		  String tk =request.getParameter("timkiem");
+//		  if (mls != null) {
+//			  dssach =sbo.timkiem(dssach, mls); 
+//		  } else if (tk != null) { 
+//			  dssach =sbo.timkiem(dssach, tk);
+//		  };
+		  
+//		  if(request.getAttribute("dssach") == null)request.setAttribute("dssach", dssach);
+		 
 
+		int trang;
+		if(request.getParameter("trang")!= null) {
+			trang = Integer.parseInt(request.getParameter("trang"));
+		}else trang = 1;
+		request.setAttribute("trang", trang);
+		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("htsach.jsp");
 		rd.forward(request, response);

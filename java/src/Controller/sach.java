@@ -37,26 +37,8 @@ public class sach extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		loaibo lbo = new loaibo();
-		ArrayList<loaibean> dsloai = lbo.getloai();
-		request.setAttribute("dsloai", dsloai);
-
-		sachbo sbo = new sachbo();
-		ArrayList<sachbean> dssach = sbo.getsach();
-		String mls = request.getParameter("ml");
-		String tk = request.getParameter("timkiem");
-		if (mls != null) {
-			dssach = sbo.timkiem(dssach, mls);
-		} else if (tk != null) {
-			dssach = sbo.timkiem(dssach, tk);
-		}
-		request.setAttribute("dssach", dssach);
-
-		
 		RequestDispatcher rd = request.getRequestDispatcher("htsach.jsp");
 		rd.forward(request, response);
-		 
-		//response.sendRedirect("htsach");
 
 	}
 

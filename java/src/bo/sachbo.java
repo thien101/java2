@@ -18,7 +18,7 @@ public class sachbo {
 	public ArrayList<sachbean> timkiem(ArrayList<sachbean> dss, String tk){
 		ArrayList<sachbean> findsach = new ArrayList<sachbean>();
 		//int n = dssach.size();
-		for(sachbean s : dssach) {
+		for(sachbean s : ds.getsach()) {
 			if(s.getMaloai().toLowerCase().contains(tk.toLowerCase())
 					|| s.getMasach().toLowerCase().trim().contains(tk.toLowerCase().trim()) 
 					|| s.getTacgia().toLowerCase().trim().contains(tk.toLowerCase().trim()) 
