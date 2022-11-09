@@ -30,7 +30,7 @@ public class khachhangbo {
 	}
 	
 	public static void main(String[] args) {
-		khachhangbean k = new khachhangbean("thien123", "123", "thien", "sadad", "0123456789", "thien@gmail.com");
+		khachhangbean k = new khachhangbean(1,"thien123", "123", "thien", "sadad", "0123456789", "thien@gmail.com");
 		khachhangbo khbo = new khachhangbo();
 		khbo.them_kh(k);
 	}

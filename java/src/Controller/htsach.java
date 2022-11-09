@@ -44,18 +44,34 @@ public class htsach extends HttpServlet {
 		ArrayList<sachbean> dssach = new ArrayList<sachbean>();
 		
 		HttpSession session = request.getSession();
+		//phan trang
+		int trang;
+		if(session.getAttribute("trang") == null) {
+			session.setAttribute("trang", 1);
+		}
+		if(request.getParameter("trang")!= null) {
+			trang = Integer.parseInt(request.getParameter("trang"));
+			session.setAttribute("trang", trang);
+		}
+		//lay dssach
 		if(session.getAttribute("dssach") == null || request.getParameter("all") != null) {
 			dssach = sbo.getsach();
 			session.setAttribute("dssach", dssach);
+			session.setAttribute("trang", 1);
 		}
+		
+		
+		
 		String mls = request.getParameter("ml");
 		String tk =request.getParameter("timkiem");
 		if (mls != null) {
 			  dssach =sbo.timkiem(dssach, mls);
 			  session.setAttribute("dssach", dssach);
+			  session.setAttribute("trang", 1);
 		} else if (tk != null) { 
 			  dssach =sbo.timkiem(dssach, tk);
 			  session.setAttribute("dssach", dssach);
+			  session.setAttribute("trang", 1);
 		}
 		//session.setAttribute("dssach", dssach);
 		
@@ -73,11 +89,8 @@ public class htsach extends HttpServlet {
 //		  if(request.getAttribute("dssach") == null)request.setAttribute("dssach", dssach);
 		 
 
-		int trang;
-		if(request.getParameter("trang")!= null) {
-			trang = Integer.parseInt(request.getParameter("trang"));
-		}else trang = 1;
-		request.setAttribute("trang", trang);
+		
+		
 		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("htsach.jsp");

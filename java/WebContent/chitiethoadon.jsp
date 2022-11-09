@@ -1,6 +1,8 @@
-<%@page import="bean.khachhangbean"%>
 <%@page import="bean.giohangbean"%>
+<%@page import="bean.hoadonbean"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="bo.giohangbo"%>
+<%@page import="bean.khachhangbean"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -36,7 +38,7 @@
 	      <a class="navbar-brand " href="htsach?all=true">Trang Chu</a>
 	    </div>
 	    <ul class="nav navbar-nav">
-	      <li class="active"><a href="htgio">Gio Hang(<%=sl %>)</a></li>
+	       <li class="active"><a href="htgio">Gio Hang(<%=sl %>)</a></li>
 	      <li><a href="hoadon">Thanh Toan</a></li>
 	      <li><a href="lichsugiaodich">Lich Su Mua Hang</a></li>
 	      <%//<li><a href="#"><%=session.getAttribute("s") %></a></li> %>
@@ -53,45 +55,42 @@
 	    </ul>
 	  	</div>
 	</nav>
-
+	
 	<%
-	long tongtien = 0;
 	
-	if(gh.ds.size() != 0){
-		tongtien = gh.tongtien();
-		}
 	%>
-	
 	<center>
-		<div style="width: 400px; height: 340px; border: 1px solid; margin-top: 150px;">
-			<h3 style="margin: 20px 0 0 0">Tổng Tiền Thanh Toán là: <%= tongtien %></h3>
-			<form action="" ">
-				<div style="padding-bottom: 20px">
-				Họ Tên: <input type="text" style="margin: 20px 0" value="<%=(session.getAttribute("dn") != null) ? kh.getHoten() : ""%>"><br> 
-				Địa Chỉ: <input type="text" style="margin-bottom: 20px" value="<%=(session.getAttribute("dn") != null) ? kh.getDiachi() : ""%>"><br>
-				Số ĐT: <input type="text" style="margin-bottom: 20px" value="<%=(session.getAttribute("dn") != null) ? kh.getSdt() : ""%>"><br>
-				Email: <input type="text" style="margin-bottom: 20px" value="<%=(session.getAttribute("dn") != null) ? kh.getEmail() : ""%>"><br>
-				Tên DN: <input type="text" style="margin-bottom: 20px" value="<%=(session.getAttribute("dn") != null) ? kh.getTendn() : ""%>"><br>
-				<h4 style="display: inline-block; margin: 0">Bạn có chăc muốn thanh toán:</h4>
-				<%if(session.getAttribute("dn") != null){ %>
-	     		 <a href="hoadon?tt=yes">Yes</a>
-		  		or  
-				<a href="hoadon?tt=no">No</a>
-	      		<%}else {  
-	    		%>
-	    		<button>Yes</button>
-	    		<button>No</button>
-	    		<%} %>
-
-				<!-- <a href="hoadon?tt=yes">Yes</a>
-		  		or  
-				<a href="hoadon?tt=no">No</a> -->
-			</div>
-			</form>
-			
-		</div>
+		<h3 style="margin-top: 20px">Danh Sach Hóa Đơn</h3>
 	</center>
+	<table width="900" align="center" style="margin-top: 50px">
+	    <tr>
+	   		<td>
+	   			<table width="900" align="center">
+		   			<tr height="30" style="border: 1px solid; text-align: center;">
+
+		   					<td width="" style="border-right: 1px solid; padding-left: 10px">Mã Sách</td>
+		   					<td width="" style="border-right: 1px solid; padding-left: 10px">Tên Sách</td>
+		   					<td width="" style="border-right: 1px solid; padding-left: 10px">Số Lượng</td>
+		   					<td width="" style="border-right: 1px solid; padding-left: 10px">Thành Tiền</td>
+		   					<td width="" style="border-right: 1px solid; padding-left: 10px">Trạng thái</td>
 	
+		   			</tr>
+		   			<%
+		   			ArrayList<giohangbean> dssp = (ArrayList<giohangbean>)session.getAttribute("cthd");
+		   			for(giohangbean sp : dssp){%>
+		   				<tr height="30" style="border: 1px solid; text-align: center;">
+		   					<td width="" style="border-right: 1px solid; padding-left: 10px"><%=sp.getMasach() %></td>
+		   					<td width="" style="border-right: 1px solid; padding-left: 10px"><%=sp.getTensach() %></td>
+		   					<td width="" style="border-right: 1px solid; padding-left: 10px"><%=sp.getSoluong() %></td>
+		   					<td width="" style="border-right: 1px solid; padding-left: 10px"><%=sp.getThanhtien() %></td>
+		   					<td width="" style="border: 1px solid; padding-left: 10px"><%=(sp.isDamua() == true) ? "Đã Thanh Toán" : "Chưa Thanh Toán" %></td>
+		   				</tr>
+		   			<%}
+		   			%>
+	   			</table>
+	   		</td></tr></table>
+	   		
+	   		
 	
 </body>
 </html>

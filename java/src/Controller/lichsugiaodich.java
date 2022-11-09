@@ -11,19 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bo.khachhangbo;
+import bean.hoadonbean;
+import bean.khachhangbean;
+import bo.hoadonbo;
 
 /**
- * Servlet implementation class ktdn
+ * Servlet implementation class lichsugiaodich
  */
-@WebServlet("/ktdn")
-public class ktdn extends HttpServlet {
+@WebServlet("/lichsugiaodich")
+public class lichsugiaodich extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ktdn() {
+    public lichsugiaodich() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,39 +35,23 @@ public class ktdn extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String un = request.getParameter("tendn");
-		String pass = request.getParameter("pass");
-		/*ArrayList<String> arr = new ArrayList<>();
-		arr.add(un);
-		arr.add(pass);*/
-		
-		if(un != null && un != null) {
-			//Tao doi tuong session
-			HttpSession ss = request.getSession();
-			
-			//Neu chua tao session
-			if(ss.getAttribute("dn") == null ) {
-				ss.setAttribute("dn", "");
-			}
-			
-			khachhangbo khbo = new khachhangbo();
-			if(khbo.ktdn(un, pass) != null) {
-				ss.setAttribute("dn", khbo.ktdn(un, pass));
-				RequestDispatcher rd = request.getRequestDispatcher("htsach");
-				rd.forward(request, response);
-			} else {
-				request.setAttribute("Loi", "Sai tai khoan hoac mat khau");
-				RequestDispatcher rd = request.getRequestDispatcher("baitap12_09.jsp");
-				rd.forward(request, response);
-			}
-			
-			//Chuyen tiep ve trang htsach.jsp
-			
-		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("baitap12_09.jsp");
+		HttpSession session = request.getSession();
+		if(session.getAttribute("dshd") == null) {
+			session.setAttribute("dshd", "");
+		}
+		khachhangbean kh = new khachhangbean();
+		hoadonbo hd = new hoadonbo();
+		ArrayList<hoadonbean> dshd;
+		if(session.getAttribute("dn") != null) {
+			kh = (khachhangbean)session.getAttribute("dn");
+			dshd = hd.get_dshd(kh.getMakh());
+			session.setAttribute("dshd", dshd);
+			RequestDispatcher rd = request.getRequestDispatcher("Lichsu.jsp");
+			rd.forward(request, response);
+		} else {
+			RequestDispatcher rd = request.getRequestDispatcher("ktdn");
 			rd.forward(request, response);
 		}
-		
 		
 	}
 

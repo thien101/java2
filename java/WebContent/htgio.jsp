@@ -1,3 +1,4 @@
+<%@page import="bean.khachhangbean"%>
 <%@page import="bean.giohangbean"%>
 <%@page import="bo.giohangbo"%>
 <%@page import="bo.loaibo"%>
@@ -39,22 +40,23 @@
 	<nav class="navbar navbar-inverse">
 	  	<div class="container-fluid">
 	    <div class="navbar-header">
-	      <a class="navbar-brand" href="htsach">Trang Chu</a>
+	      <a class="navbar-brand " href="htsach?all=true">Trang Chu</a>
 	    </div>
 	    <ul class="nav navbar-nav">
-	      <li class="active"><a href="htgio.jsp">Gio Hang(<%= sl %>)</a></li>
+	       <li class="active"><a href="htgio">Gio Hang(<%=sl %>)</a></li>
 	      <li><a href="hoadon">Thanh Toan</a></li>
-	      <li><a href="#">Lich Su Mua Hang</a></li>
+	      <li><a href="lichsugiaodich">Lich Su Mua Hang</a></li>
 	      <%//<li><a href="#"><%=session.getAttribute("s") %></a></li> %>
 	      
 	    </ul>
 	    <ul class="nav navbar-nav navbar-right">
-	      <li><a href="action_gh?xoaAll=true"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+	      <li><a href="action_gh?xoaAll=true"><span class="glyphicon glyphicon-log-in"></span> Sign Up</a></li>
 	      <%if(session.getAttribute("dn") == null){ %>
 	      <li><a href="ktdn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 	      <%}else {
+	    	  khachhangbean k = (khachhangbean)session.getAttribute("dn");
 	    	%>
-	    	<li><a href="baitap12_09.jsp"><span class="glyphicon glyphicon-log-in"></span> Xin Chao <%=session.getAttribute("dn") %></a></li>
+	    	<li><a href="baitap12_09.jsp"><span class="glyphicon glyphicon-user"></span> Xin Chao <%=k.getHoten() %></a></li>
 	    	<%} %>
 	    </ul>
 	  	</div>
@@ -124,7 +126,7 @@
 	   					<input type="text" value="true" name="xoaNsach" style="display: none;"></form>
 	   				<form action="action_gh?xoaAll=true" method="post" style="display: inline-block;">
 	   					<button style="margin: 20px 30px 0;">Trả lại toàn bộ</button></form>
-	   				<form action="htsach?all=true" method="post" style="display: inline-block;">
+	   				<form action="htsach" method="post" style="display: inline-block;">
 	   					<button style="margin: 20px 30px 0;">Tiếp tục mua hàng</button></form>
 	   				<form action="hoadon" method="post" style="display: inline-block;">
 	   					<button style="margin-top: 20px">Thanh Toán</button></form>

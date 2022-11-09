@@ -50,12 +50,12 @@
 	<nav class="navbar navbar-inverse">
 	  	<div class="container-fluid">
 	    <div class="navbar-header">
-	      <a class="navbar-brand" href="htsach?all=true">Trang Chu</a>
+	      <a class="navbar-brand " href="htsach?all=true">Trang Chu</a>
 	    </div>
 	    <ul class="nav navbar-nav">
-	      <li class="active"><a href="htgio">Gio Hang(<%=sl %>)</a></li>
+	      <li class="active"><a href="htgio"">Gio Hang(<%=sl %>)</a></li>
 	      <li><a href="hoadon">Thanh Toan</a></li>
-	      <li><a href="#">Lich Su Mua Hang</a></li>
+	      <li><a href="lichsugiaodich">Lich Su Mua Hang</a></li>
 	      <%//<li><a href="#"><%=session.getAttribute("s") %></a></li> %>
 	      
 	    </ul>
@@ -63,6 +63,7 @@
 	    <%if(session.getAttribute("dn") == null){ %>
 	       <li><a href="dangky"><span class="glyphicon glyphicon-user"></span> Register</a></li>
 	      <%}%>
+
 	      <li><a href="action_gh?xoaAll=true"><span class="glyphicon glyphicon-log-in"></span> Sign Up</a></li>
 	      <%-- <li><a href="<%= (session.getAttribute("dn") == null) ? "ktdn" : "#"%>"><span class="glyphicon glyphicon-user"></span><%=(session.getAttribute("dn") == null) ? "Login" : "Xin chao " + k.getHoten() %></a></li> --%>
 	      <%if(session.getAttribute("dn") == null){ %>
@@ -70,7 +71,7 @@
 	      <%}else {
 	    	  khachhangbean k = (khachhangbean)session.getAttribute("dn");
 	    	%>
-	    	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Xin Chao <%=k.getTendn() %></a></li>
+	    	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Xin Chao <%=k.getHoten() %></a></li>
 	    	<%} %>
 	    </ul>
 	  	</div>
@@ -100,7 +101,7 @@
 	   		<td valign="top" width="50%" > <center><h2>Danh sách các sách</h3></center>
 	   			<table width="100%">
 		   			<%
-		   				int trang = (int)request.getAttribute("trang");
+		   				int trang = (int)session.getAttribute("trang");
 		   				int start = (trang -1)*sls;
 		   				int end = trang *sls;
 		   				 if(trang  == n/sls +1){

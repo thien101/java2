@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.khachhangbean;
-import bo.khachhangbo;
+import bo.giohangbo;
 
 /**
- * Servlet implementation class dangky
+ * Servlet implementation class chitiethoadon
  */
-@WebServlet("/dangky")
-public class dangky extends HttpServlet {
+@WebServlet("/chitiethoadon")
+public class chitiethoadon extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public dangky() {
+    public chitiethoadon() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,31 +33,15 @@ public class dangky extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession ss = request.getSession();
-		if(ss.getAttribute("dn") == null ) {
-			ss.setAttribute("dn", "");
+		HttpSession session = request.getSession();
+		if(session.getAttribute("cthd") == null) {
+			session.setAttribute("cthd", "");
 		}
-		if(request.getParameter("tendn") != null) {
-			khachhangbo khbo = new khachhangbo();
-			String tendn =  request.getParameter("tendn");
-			String pass = request.getParameter("pass");
-			String hoten = request.getParameter("hoten");
-			String diachi = request.getParameter("diachi");
-			String sodt = request.getParameter("sodt");
-			String email = request.getParameter("email");
-			khachhangbean kh = new khachhangbean(0,tendn, pass, hoten, diachi, sodt, email);
-			khbo.them_kh(kh);
-			ss.setAttribute("dn", kh);
-			RequestDispatcher rd = request.getRequestDispatcher("htsach");
-			rd.forward(request, response);
-			
-		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("dangky.jsp");
-			rd.forward(request, response);
-		}
-		
-		
-		
+		khachhangbean kh = (khachhangbean)session.getAttribute("dn");
+		giohangbo cthd = new giohangbo();
+		session.setAttribute("cthd", cthd.get_dssp(kh.getMakh(), Long.parseLong(request.getParameter("mahd"))));
+		RequestDispatcher rd = request.getRequestDispatcher("chitiethoadon.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

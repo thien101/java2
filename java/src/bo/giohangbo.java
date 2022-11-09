@@ -3,9 +3,11 @@ package bo;
 import java.util.ArrayList;
 
 import bean.giohangbean;
+import dao.giohangdao;
 
 public class giohangbo {
 	public ArrayList<giohangbean> ds = new ArrayList<giohangbean>();
+	public giohangdao ghdao = new giohangdao();
 	public void Them(String masach, String tensach, long giasach, long soluong, String anh) {
 		for(giohangbean g:ds) {
 			if(g.getMasach().equals(masach)) {
@@ -13,7 +15,11 @@ public class giohangbo {
 				return;
 			}
 		}
-		ds.add(new giohangbean(masach, tensach, giasach, soluong, anh));
+		ds.add(new giohangbean(masach, tensach, giasach, soluong, anh, false));
+	}
+	
+	public ArrayList<giohangbean> get_dssp(long makh, long mahd){
+		return ghdao.getdssp(makh, mahd);
 	}
 	
 	public long tongtien () {

@@ -18,13 +18,14 @@ public class khachhangdao {
 			ResultSet rs = cmd.executeQuery();
 			
 			while (rs.next()){
+				int makh = Integer.parseInt(rs.getString("makh"));
 				String tendn = rs.getString("tendn");
 				String pass = rs.getString("pass");
 				String hoten = rs.getString("hoten");
 				String diachi = rs.getString("diachi");
 				String sdt = rs.getString("sodt");
 				String email = rs.getString("email");
-				dskhach.add(new khachhangbean(tendn, pass, hoten, diachi, sdt, email));
+				dskhach.add(new khachhangbean(makh, tendn, pass, hoten, diachi, sdt, email));
 			}
 			return dskhach;
 		} catch (Exception e) {

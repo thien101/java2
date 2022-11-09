@@ -1,6 +1,7 @@
 package bean;
 
 public class khachhangbean {
+	long makh;
 	String tendn;
 	String pass;
 	String hoten;
@@ -11,14 +12,21 @@ public class khachhangbean {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public khachhangbean(String tendn, String pass, String hoten, String diachi, String sdt, String email) {
+	public khachhangbean(long makh, String tendn, String pass, String hoten, String diachi, String sdt, String email) {
 		super();
+		this.makh = makh;
 		this.tendn = tendn;
 		this.pass = pass;
 		this.hoten = hoten;
 		this.diachi = diachi;
 		this.sdt = sdt;
 		this.email = email;
+	}
+	public long getMakh() {
+		return makh;
+	}
+	public void setMakh(long makh) {
+		this.makh = makh;
 	}
 	public String getTendn() {
 		return tendn;

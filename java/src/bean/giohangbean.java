@@ -6,11 +6,12 @@ public class giohangbean {
 	long giasach, soluong;
 	String anh;
 	long thanhtien;
+	boolean damua;
 	public giohangbean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public giohangbean(String masach, String tensach, long giasach, long soluong, String anh) {
+	public giohangbean(String masach, String tensach, long giasach, long soluong, String anh, boolean damua) {
 		super();
 		this.masach = masach;
 		this.tensach = tensach;
@@ -18,6 +19,7 @@ public class giohangbean {
 		this.soluong = soluong;
 		this.anh = anh;
 		this.thanhtien = soluong*giasach;
+		this.damua = damua;
 	}
 	public String getMasach() {
 		return masach;
@@ -54,6 +56,12 @@ public class giohangbean {
 	}
 	public void setThanhtien(long thanhtien) {
 		this.thanhtien = thanhtien;
+	}
+	public boolean isDamua() {
+		return damua;
+	}
+	public void setDamua(boolean damua) {
+		this.damua = damua;
 	}
 	
 	
