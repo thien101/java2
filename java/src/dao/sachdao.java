@@ -1,9 +1,11 @@
 package dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import bean.hoadonbean;
 import bean.sachbean;
 
 public class sachdao {
@@ -45,4 +47,35 @@ public class sachdao {
 		}
 	}
 	
+	public int them (sachbean s, String sotap, Date date) throws Exception {
+		CoSodao cs = new CoSodao();
+		cs.ketnoi();
+		
+		String sql = "insert into sach (masach, tensach, soluong, gia, maloai, sotap, anh, NgayNhap, tacgia)\r\n"
+				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement cmd = cs.cn.prepareStatement(sql);
+		cmd.setString(1, s.getMasach());
+		cmd.setString(2, s.getTensach());
+		cmd.setLong(3, s.getSoluong());
+		cmd.setLong(4, s.getGia());
+		cmd.setString(5, s.getMaloai());
+		cmd.setString(6, sotap);
+		cmd.setString(7, s.getAnh());
+		cmd.setDate(8, date);
+		cmd.setString(9, s.getTacgia());
+		return cmd.executeUpdate();
+	}
+	
+	public static void main(String[] args) {
+		long millis=System.currentTimeMillis();//
+		java.sql.Date date=new java.sql.Date(millis);
+		sachbean sach = new sachbean("bbb123", "aaa", "bbb", 10, 1000, null, "Tin");
+		sachdao sd = new sachdao();
+		try {
+			sd.them(sach, "1", date);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
 }

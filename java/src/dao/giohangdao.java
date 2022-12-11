@@ -9,13 +9,14 @@ import bean.giohangbean;
 
 
 public class giohangdao {
+	
 	public ArrayList<giohangbean> getdssp(long makh, long mahd) {
 		ArrayList<giohangbean> dssach = new ArrayList<giohangbean>();
 		try {
 			
 			CoSodao cs = new CoSodao();
 			cs.ketnoi();
-			String sql = "select sach.MaSach, sach.tensach, cthd.SoLuongMua, cthd.SoLuongMua*sach.gia as 'thanhtien', cthd.damua\r\n"
+			String sql = "select sach.MaSach, sach.tensach, cthd.SoLuongMua, sach.gia, cthd.SoLuongMua*sach.gia as 'thanhtien', cthd.damua\r\n"
 					+ "from ChiTietHoaDon as cthd right join hoadon as hd on cthd.MaHoaDon = hd.MaHoaDon join sach on cthd.MaSach = sach.masach\r\n"
 					+ "where hd.makh = ? and cthd.MaHoaDon = ?;";
 			PreparedStatement cmd = cs.cn.prepareStatement(sql);
@@ -26,7 +27,8 @@ public class giohangdao {
 				String masach = rs.getString("MaSach");
 				String tensach = rs.getString("tensach");
 				long soluong = rs.getLong("SoLuongMua");
-				long gia = rs.getLong("thanhtien")/soluong;
+				long gia = rs.getLong("gia");
+				long thanhtien = rs.getLong("thanhtien")/soluong;
 				boolean damua = rs.getBoolean("damua");
 				dssach.add(new giohangbean(masach, tensach, gia, soluong, "", damua));
 			}

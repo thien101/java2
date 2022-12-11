@@ -1,7 +1,9 @@
 package bo;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
+import bean.hoadonbean;
 import bean.sachbean;
 import dao.sachdao;
 
@@ -13,6 +15,16 @@ public class sachbo {
 	public ArrayList<sachbean> getsach(){
 		dssach = ds.getsach();
 		return dssach;
+	}
+	
+	public void them_sach(sachbean s, String sotap, Date date) {
+		try {
+			ds.them(s, sotap, date);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
 	}
 	
 	public ArrayList<sachbean> timkiem(ArrayList<sachbean> dss, String tk){

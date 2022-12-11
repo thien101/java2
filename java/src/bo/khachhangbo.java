@@ -18,6 +18,11 @@ public class khachhangbo {
 		}
 		return null;
 	}
+	
+	public khachhangbean ktdn2(String tendn, String pass) {
+		return kh.ktdn(tendn, pass);
+	}
+	
 	public void them_kh(khachhangbean kh) {
 		khachhangdao k = new khachhangdao();
 		try {

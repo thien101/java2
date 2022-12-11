@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none
+}
+
+.themloai {
+	display: none;
+	border: 1px solid;
+	position: absolute;
+	left: 20%;
+	top: 20%;
+	
+}
+
+
+.loai:hover a{
+	background-color: orange;
+}

@@ -21,6 +21,16 @@ public class hoadonbo {
 
 	}
 	
+	public void update_hd(long mahd) {
+		try {
+			hd.update(mahd);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+	}
+	
 	public  int them_dshd (String masach, long sl, long mahd, boolean damua) {
 		try {
 			return hd.them_dshd(masach, sl, mahd, damua);
@@ -31,18 +41,15 @@ public class hoadonbo {
 		return -1;
 	}
 	
-	public int get_hd() {
-		return hd.gethd();
+	public int get_hd(long makh) {
+		return hd.gethd(makh);
 	}
 	
 	public ArrayList<hoadonbean> get_dshd(long makh){
 		return hd.getdshd(makh);
 	}
-//	public static void main(String[] args) {
-//		hoadonbo hd = new hoadonbo();
-//		for(hoadonbean h : hd.get_dshd(26)) {
-//			System.out.println(h.getMahd() + " " + h.getMakh());
-//		}
-//		
-//	}
+	public static void main(String[] args) {
+		hoadonbo hd = new hoadonbo();
+		hd.update_hd(13);
+	}
 }

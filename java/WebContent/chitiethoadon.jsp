@@ -71,6 +71,7 @@
 		   					<td width="" style="border-right: 1px solid; padding-left: 10px">Mã Sách</td>
 		   					<td width="" style="border-right: 1px solid; padding-left: 10px">Tên Sách</td>
 		   					<td width="" style="border-right: 1px solid; padding-left: 10px">Số Lượng</td>
+		   					<td width="" style="border-right: 1px solid; padding-left: 10px">Giá</td>
 		   					<td width="" style="border-right: 1px solid; padding-left: 10px">Thành Tiền</td>
 		   					<td width="" style="border-right: 1px solid; padding-left: 10px">Trạng thái</td>
 	
@@ -82,6 +83,7 @@
 		   					<td width="" style="border-right: 1px solid; padding-left: 10px"><%=sp.getMasach() %></td>
 		   					<td width="" style="border-right: 1px solid; padding-left: 10px"><%=sp.getTensach() %></td>
 		   					<td width="" style="border-right: 1px solid; padding-left: 10px"><%=sp.getSoluong() %></td>
+		   					<td width="" style="border-right: 1px solid; padding-left: 10px"><%=sp.getGiasach() %></td>
 		   					<td width="" style="border-right: 1px solid; padding-left: 10px"><%=sp.getThanhtien() %></td>
 		   					<td width="" style="border: 1px solid; padding-left: 10px"><%=(sp.isDamua() == true) ? "Đã Thanh Toán" : "Chưa Thanh Toán" %></td>
 		   				</tr>

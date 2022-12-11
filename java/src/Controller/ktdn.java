@@ -38,10 +38,9 @@ public class ktdn extends HttpServlet {
 		/*ArrayList<String> arr = new ArrayList<>();
 		arr.add(un);
 		arr.add(pass);*/
-		
+		HttpSession ss = request.getSession();
 		if(un != null && un != null) {
 			//Tao doi tuong session
-			HttpSession ss = request.getSession();
 			
 			//Neu chua tao session
 			if(ss.getAttribute("dn") == null ) {

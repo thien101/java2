@@ -1,6 +1,8 @@
 package Controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -52,13 +54,16 @@ public class hoadon extends HttpServlet {
 		}else{
 			int mahd;
 			hoadonbo hd = new hoadonbo();
+//			Date d = new Date();
+//			SimpleDateFormat dd = new SimpleDateFormat("yyyy-MM-dd");
+//			dd.format(d);
 			long millis=System.currentTimeMillis();
 			java.sql.Date date=new java.sql.Date(millis);
 			khachhangbean kh = (khachhangbean)session.getAttribute("dn");
 			if(request.getParameter("tt").equals("yes")) {
 				//them hoa don vao sql trang thai thanh toan
 				hd.them_hd(new hoadonbean(0, kh.getMakh(), date, true));
-				mahd = hd.get_hd();
+				mahd = hd.get_hd(kh.getMakh());
 				for(giohangbean g : gh.ds) {
 					hd.them_dshd(g.getMasach(), g.getSoluong(), mahd, true);
 				}
@@ -66,7 +71,7 @@ public class hoadon extends HttpServlet {
 			}else {
 				//them hoa don vao sql trang thai chua thanh toan
 				hd.them_hd(new hoadonbean(0, kh.getMakh(), date, false));
-				mahd = hd.get_hd();
+				mahd = hd.get_hd(kh.getMakh());
 				for(giohangbean g : gh.ds) {
 					hd.them_dshd(g.getMasach(), g.getSoluong(), mahd, false);
 				}

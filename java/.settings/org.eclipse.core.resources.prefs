@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//WebContent/chitietxnhd.jsp=UTF-8
+encoding//src/Controller/sachAdminCotroller.java=UTF-8
 encoding//src/dao/loaidao.java=UTF-8
 encoding//src/dao/sachdao.java=UTF-8
 encoding//src/dao/sinhviendao.java=UTF-8

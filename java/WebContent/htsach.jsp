@@ -42,6 +42,7 @@
 	int st = (dssach.size()/sls == 0) ? 1 : dssach.size()/sls;
 	int n=dssach.size();
 	if(dssach.size()/sls != 0)st++;
+	
 	//khachhangbean k;
 	//if(session.getAttribute("dn") != null){
 	//	k = (khachhangbean)session.getAttribute("dn");
@@ -54,8 +55,8 @@
 	    </div>
 	    <ul class="nav navbar-nav">
 	      <li class="active"><a href="htgio"">Gio Hang(<%=sl %>)</a></li>
-	      <li><a href="hoadon">Thanh Toan</a></li>
-	      <li><a href="lichsugiaodich">Lich Su Mua Hang</a></li>
+	      <li><a href="<%=((session.getAttribute("dn") == null)) ? "ktdn" : "hoadon" %>">Thanh Toan</a></li>
+	      <li><a href="<%=(session.getAttribute("dn") == null) ? "ktdn" : " lichsugiaodich" %>">Lich Su Mua Hang</a></li>
 	      <%//<li><a href="#"><%=session.getAttribute("s") %></a></li> %>
 	      
 	    </ul>

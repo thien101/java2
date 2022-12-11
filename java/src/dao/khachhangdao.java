@@ -27,7 +27,37 @@ public class khachhangdao {
 				String email = rs.getString("email");
 				dskhach.add(new khachhangbean(makh, tendn, pass, hoten, diachi, sdt, email));
 			}
+			rs.close();
+			cs.cn.close();
 			return dskhach;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public khachhangbean ktdn(String tendn, String pass) {
+		try {
+			khachhangbean kh = null;
+			CoSodao cs = new CoSodao();
+			cs.ketnoi();
+			String sql = "select * from KhacHang where tendn=? and pass=?";
+			PreparedStatement cmd = cs.cn.prepareStatement(sql);
+			cmd.setString(1, tendn);
+			cmd.setString(2, pass);
+			ResultSet rs = cmd.executeQuery();
+			if(rs.next()) {
+				int makh = Integer.parseInt(rs.getString("makh"));
+				String hoten = rs.getString("hoten");
+				String diachi = rs.getString("diachi");
+				String sdt = rs.getString("sodt");
+				String email = rs.getString("email");
+				kh = new khachhangbean(makh, tendn, pass, hoten, diachi, sdt, email);
+			}
+			rs.close();
+			cs.cn.close();
+			return kh;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

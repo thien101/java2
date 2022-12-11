@@ -22,6 +22,23 @@ public class hoadondao {
 		return cmd.executeUpdate();
 	}
 	
+	public int update (long mahd) throws Exception {
+		CoSodao cs = new CoSodao();
+		cs.ketnoi();
+		
+		String sql = "update hoadon\r\n"
+				+ "set damua = 1\r\n"
+				+ "where MaHoaDon = ?\r\n"
+				+ "\r\n"
+				+ "update ChiTietHoaDon\r\n"
+				+ "set damua = 1\r\n"
+				+ "where MaHoaDon = ?;";
+		PreparedStatement cmd = cs.cn.prepareStatement(sql);
+		cmd.setLong(1, mahd);
+		cmd.setLong(2, mahd);
+		return cmd.executeUpdate();
+	}
+	
 	public int them_dshd (String masach, long sl, long mahd, boolean damua) throws Exception {
 		CoSodao cs = new CoSodao();
 		cs.ketnoi();
@@ -60,18 +77,19 @@ public class hoadondao {
 		return null;
 	}
 	
-	public int gethd() {
+	public int gethd(long makh) {
 		try {
 			
 			CoSodao cs = new CoSodao();
 			cs.ketnoi();
-			String sql = "select top 1 MaHoaDon\r\n"
+			String sql = "select max(MaHoaDon) as mahd\r\n"
 					+ "from hoadon\r\n"
-					+ "ORDER BY MaHoaDon desc";
+					+ "where makh = ?";
 			PreparedStatement cmd = cs.cn.prepareStatement(sql);
+			cmd.setLong(1, makh);
 			ResultSet rs = cmd.executeQuery();
 			while (rs.next()){
-				return Integer.parseInt(rs.getString("MaHoaDon"));
+				return Integer.parseInt(rs.getString("mahd"));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -79,9 +97,9 @@ public class hoadondao {
 		return -1;
 	}
 	
-//	public static void main(String[] args) {
-//		hoadondao hd = new hoadondao();
-//		System.out.println(hd.gethd());
-//	}
+	public static void main(String[] args) {
+		hoadondao hd = new hoadondao();
+		System.out.println(hd.gethd(26));
+	}
 	
 }
