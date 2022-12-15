@@ -40,40 +40,62 @@ public class upsach extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		sachbo sb = new sachbo();
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		sachbo sb = new sachbo();
 		HttpSession ss = request.getSession();
 		loaibo lb = new loaibo();
 		if(ss.getAttribute("dsloai") == null) {
 			ss.setAttribute("dsloai", lb.getloai());
 		}
+		if(ss.getAttribute("dssach") == null) {
+			ss.setAttribute("dssach", "");
+		}
 		if(request.getContentLength()<=0){
+			ss.setAttribute("dssach", sb.getsach());
 			RequestDispatcher rd = request.getRequestDispatcher("nhapsachAdmin.jsp");
 			rd.forward(request, response);
 		}else {
-			String masach = request.getParameter("txtms");
-			String tensach = request.getParameter("txttensach");
-			String tacgia = request.getParameter("txttacgia");
-			long soluong = Long.parseLong(request.getParameter("txtsl"));
-			long gia = Long.parseLong(request.getParameter("txtgia"));
-			String maloai = request.getParameter("txtloai");
-			String sotap = request.getParameter("txtsotap");//1
-			
-			
-			Part filePart = request.getPart("txtfile");
-			String fileName = filePart.getSubmittedFileName();
-			for (Part part : request.getParts()) {
-				part.write("C:\\Users\\Admin\\eclipse-workspace\\java\\WebContent\\image_sach\\" + fileName);
-			}
-			String anh = ".\\image_sach\\" + fileName;
-			
-			sachbean s = new sachbean(masach, tensach, tacgia, soluong, gia, anh, maloai);//2
-			long millis=System.currentTimeMillis();//
-			java.sql.Date date=new java.sql.Date(millis);//3
-			sb.them_sach(s, sotap, date);
-
-			RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
+				if(request.getParameter("them") != null) {
+					String masach = request.getParameter("txtms");
+					String tensach = request.getParameter("txttensach");
+					String tacgia = request.getParameter("txttacgia");
+					long soluong = Long.parseLong(request.getParameter("txtsl"));
+					long gia = Long.parseLong(request.getParameter("txtgia"));
+					String maloai = request.getParameter("txtloai");
+					String sotap = request.getParameter("txtsotap");//1
+					
+					
+					Part filePart = request.getPart("txtfile");
+					String fileName = filePart.getSubmittedFileName();
+					for (Part part : request.getParts()) {
+						part.write("C:\\Users\\Admin\\eclipse-workspace\\java\\WebContent\\image_sach\\" + fileName);
+					}
+					String anh = ".\\image_sach\\" + fileName;
+					
+					sachbean s = new sachbean(masach, tensach, tacgia, soluong, gia, anh, maloai);//2
+					long millis=System.currentTimeMillis();//
+					java.sql.Date date=new java.sql.Date(millis);//3
+					sb.them_sach(s, sotap, date);
+				}
+				else if(request.getParameter("sua") != null) {
+					String masach = request.getParameter("txtms");
+					String tensach = request.getParameter("txttensach");
+					String tacgia = request.getParameter("txttacgia");
+					long soluong = Long.parseLong(request.getParameter("txtsl"));
+					long gia = Long.parseLong(request.getParameter("txtgia"));
+					String maloai = request.getParameter("txtloai");
+					String sotap = request.getParameter("txtsotap");//1
+					
+					sachbean s = new sachbean(masach, tensach, tacgia, soluong, gia, "", maloai);
+					sb.sua_sach(s, sotap);
+				}
+				else if (request.getParameter("xoa") != null) {
+					String masach =  request.getParameter("txtms");
+					sb.xoa_sach(masach);
+				}
+			ss.setAttribute("dssach", sb.getsach());
+			RequestDispatcher rd = request.getRequestDispatcher("nhapsachAdmin.jsp");
 			rd.forward(request, response);
 		}
 	}

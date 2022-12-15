@@ -10,16 +10,6 @@ import bean.sachbean;
 
 public class sachdao {
 	public ArrayList<sachbean> dssach = new ArrayList<sachbean>();
-	public ArrayList<sachbean> get_sach(){
-		dssach.add(new sachbean("s1", "Cấu trúc dữ liệu 1", "Nguyễn Hoàng Hà", 1, 100000, "./image_sach/b1.jpg", "tin"));
-		dssach.add(new sachbean("s2", "Cấu trúc dữ liệu 2", "Nguyễn Hoàng Hà 1", 1, 100000, "./image_sach/b2.jpg", "tin"));
-		dssach.add(new sachbean("s3", "Cấu trúc dữ liệu 3", "Nguyễn Hoàng Hà 2", 1, 100000, "./image_sach/b3.jpg", "tin"));
-		dssach.add(new sachbean("s4", "Cơ sở toán", "Nguyễn Hoàng Hà 3", 1, 100000, "./image_sach/b4.jpg", "toan"));
-		dssach.add(new sachbean("s5", "Giải tích", "Nguyễn Hoàng Hà 4", 1, 100000, "./image_sach/b5.jpg", "toan"));
-		dssach.add(new sachbean("s6", "Ca dao", "Nguyễn Hoàng Hà 5", 1, 100000, "./image_sach/b6.jpg", "van"));
-		return dssach;
-	}
-	
 	public ArrayList<sachbean> getsach() {
 		try {
 			ArrayList<sachbean> dssach = new ArrayList<sachbean>();
@@ -35,7 +25,35 @@ public class sachdao {
 				String anh = rs.getString("anh");
 				String tacgia = rs.getString("tacgia");
 				long gia = rs.getLong("gia");
-				long soluong = 1;
+				long soluong = rs.getLong("soluong");
+				String maloai = rs.getString("maloai");
+				dssach.add(new sachbean(masach, tensach, tacgia, soluong, gia, anh, maloai));
+			}
+			return dssach;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public ArrayList<sachbean> tikiemsach(String ml) {
+		try {
+			ArrayList<sachbean> dssach = new ArrayList<sachbean>();
+			CoSodao cs = new CoSodao();
+			cs.ketnoi();
+			
+			String sql = "select * from sach where maloai=?";
+			PreparedStatement cmd = cs.cn.prepareStatement(sql);
+			cmd.setString(1, ml);
+			ResultSet rs = cmd.executeQuery();
+			while (rs.next()) {
+				String masach = rs.getString("masach");
+				String tensach = rs.getString("tensach");
+				String anh = rs.getString("anh");
+				String tacgia = rs.getString("tacgia");
+				long gia = rs.getLong("gia");
+				long soluong = rs.getLong("soluong");
 				String maloai = rs.getString("maloai");
 				dssach.add(new sachbean(masach, tensach, tacgia, soluong, gia, anh, maloai));
 			}
@@ -63,6 +81,34 @@ public class sachdao {
 		cmd.setString(7, s.getAnh());
 		cmd.setDate(8, date);
 		cmd.setString(9, s.getTacgia());
+		return cmd.executeUpdate();
+	}
+	
+	public int sua (sachbean s, String sotap) throws Exception {
+		CoSodao cs = new CoSodao();
+		cs.ketnoi();
+		
+		String sql = "update sach\r\n"
+				+ "set tensach=?, soluong=?, gia=?, maloai=?, sotap=?, tacgia=?\r\n"
+				+ "where masach=?";
+		PreparedStatement cmd = cs.cn.prepareStatement(sql);
+		cmd.setString(1, s.getTensach());
+		cmd.setLong(2, s.getSoluong());
+		cmd.setLong(3, s.getGia());
+		cmd.setString(4, s.getMaloai());
+		cmd.setString(5, sotap);
+		cmd.setString(6, s.getTacgia());
+		cmd.setString(7, s.getMasach());
+		return cmd.executeUpdate();
+	}
+	
+	public int xoa (String ms) throws Exception {
+		CoSodao cs = new CoSodao();
+		cs.ketnoi();
+		
+		String sql = "delete from sach where masach = ?";
+		PreparedStatement cmd = cs.cn.prepareStatement(sql);
+		cmd.setString(1,ms);
 		return cmd.executeUpdate();
 	}
 	
