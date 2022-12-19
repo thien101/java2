@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import bean.hangbean;
 
-
-
 public class hangdao {
 	public ArrayList<hangbean> gethang(){
 		try {
@@ -34,13 +32,42 @@ public class hangdao {
 			// TODO: handle exception
 			e.printStackTrace();
 			return null;
-		}
+		}	
+	}
+	
+	public int them (hangbean hang) throws Exception {
+		CoSodao cs = new CoSodao();
+		cs.ketnoi();
 		
+		String sql = "insert into hang(mahang, tenhang) values (?,?)";
+		PreparedStatement cmd = cs.cn.prepareStatement(sql);
+		cmd.setString(1, hang.getMahang());
+		cmd.setString(2, hang.getTenhang());
+		return cmd.executeUpdate();
+	}
+	
+	public int xoa (String mh) throws Exception {
+		CoSodao cs = new CoSodao();
+		cs.ketnoi();
+		String sql = "delete from sanpham where mahang = ?\r\n"
+				+ "delete from hang where mahang = ?";
+		PreparedStatement cmd = cs.cn.prepareStatement(sql);
+		cmd.setString(1,mh);
+		cmd.setString(2,mh);
+		return cmd.executeUpdate();
+	}
+	
+	public int sua (String mh, String th) throws Exception {
+		CoSodao cs = new CoSodao();
+		cs.ketnoi();
+		String sql = "update hang set tenhang = ? where mahang = ?";
+		PreparedStatement cmd = cs.cn.prepareStatement(sql);
+		cmd.setString(1,th);
+		cmd.setString(2,mh);
+		return cmd.executeUpdate();
 	}
 	public static void main(String[] args) {
 		hangdao hd = new hangdao();
-		for(hangbean h : hd.gethang()) {
-			System.out.println(h.getMahang() + " " + h.getTenhang());
-		}
+		
 	}
 }

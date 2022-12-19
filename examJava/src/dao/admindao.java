@@ -23,8 +23,7 @@ public class admindao {
 				int maad = rs.getInt("maadmin");
 				String tendn = rs.getString("tendn");
 				String pass = rs.getString("pass");
-				int quyen = rs.getInt("phanquyen");
-				dsad.add(new adminbean(maad, tendn, pass, quyen));
+				dsad.add(new adminbean(maad, tendn, pass));
 			}
 			rs.close();
 			cs.cn.close();

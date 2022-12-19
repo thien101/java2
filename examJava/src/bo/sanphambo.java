@@ -1,6 +1,8 @@
 package bo;
 
+import java.sql.Date;
 import java.util.ArrayList;
+
 
 import bean.sanphambean;
 import dao.sanphamdao;
@@ -16,7 +18,7 @@ public class sanphambo {
 		//int n = dssach.size();
 		for(sanphambean sp : spd.getsanpham()) {
 			if(sp.getTensp().trim().contains(tk.toLowerCase().trim()) 
-					|| sp.getMahang().toLowerCase().trim().contains(tk.toLowerCase().trim()) )
+					|| sp.getMahang().toLowerCase().trim().contains(tk.toLowerCase().trim()))
 					{
 				findsach.add(sp);
 			}
@@ -24,10 +26,49 @@ public class sanphambo {
 		return findsach;
 	}
 	
+	public sanphambean timkiem_msp(long masp){
+		//int n = dssach.size();
+		for(sanphambean sp : spd.getsanpham()) {
+			if(sp.getMasp() == masp){
+				return sp;
+			}
+		}
+		return null;
+	}
+	
+	public void them_sach(sanphambean s) {
+		try {
+			spd.them(s);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void sua_sach(sanphambean s) {
+		try {
+			spd.sua(s);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void xoa_sach(long ms) {
+		try {
+			spd.xoa(ms);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+	}
+	
+	
 	public static void main(String[] args) {
 		sanphambo spb = new sanphambo();
-		for(sanphambean sp : spb.timkiem("mac")) {
-			System.out.println(sp.getTensp() + " " + sp.getMasp());
-		}
+		spb.them_sach(new sanphambean(0, "sadsd", "macbook", 50, 12000000, ""));
 	}
 }

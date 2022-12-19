@@ -1,3 +1,4 @@
+<%@page import="bo.giohangbo"%>
 <%@page import="bean.sanphambean"%>
 <%@page import="bean.hangbean"%>
 <%@page import="java.util.ArrayList"%>
@@ -41,7 +42,9 @@
 <body>
 	<%
 	khachhangbean kh = (khachhangbean)session.getAttribute("khachhang");
+	giohangbo ghb = (giohangbo)session.getAttribute("gh");
 	long sl = (session.getAttribute("slhang") != null)?Long.parseLong(session.getAttribute("slhang").toString()) : 0;
+	long tt = (session.getAttribute("gh") != null)? ghb.tongtien():0;
 	request.setCharacterEncoding("utf-8");
 	response.setCharacterEncoding("utf-8");
 	%>
@@ -51,25 +54,25 @@
 			<a class="navbar-brand" href="trangchuController">Shop LapTop</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class=""><a href="giohangController">Giỏ Hàng(<%=sl%>)</a></li>
-				<li><a href="thanhtoan.jsp">Thanh Toán</a></li>
-				<li><a href="hoadonMuahang.jsp">Lịch Sử Mua Hàng</a></li>
+				<li class=""><a href="<%=((session.getAttribute("khachhang") == null)?"khachhangController?dn=true":"htgio")%>">Giỏ Hàng(<%=sl%>)</a></li>
+				<li><a href="<%=((session.getAttribute("khachhang") == null)?"khachhangController?dn=true":"thanhtoanController")%>">Thanh Toán</a></li>
+				<li><a href="<%=((session.getAttribute("khachhang") == null)?"khachhangController?dn=true":"lichsuController")%>">Lịch Sử Mua Hàng</a></li>
 				<li class="dropdown dropbar">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><%=(session.getAttribute("khachhang") == null)?"Tài Khoản" : kh.getTenkh()%>
 					<ul class="dropdown-menu ">
 						<%if(session.getAttribute("khachhang") == null){ %><li><a href="khachhangController?dn=true">Đăng Nhập</a></li>
 						<li><a href="khachhangController?dk=true">Đăng Ký</a></li><%}else{ %>
 						<li><a href="thongtinKH.jsp">Thông Tin</a></li>
-						<li><a href="#">Đăng Xuất</a></li><%} %>
+						<li><a href="khachhangController?dx=true">Đăng Xuất</a></li><%} %>
 					</ul>
 				</li>
 			</ul>
 		</div>
 	</nav>
-	
+	<%if(sl > 0){ %>
 	<center>
 		<div style="width: 400px; height: 340px; border: 1px solid; margin-top: 150px;">
-			<h3 style="margin: 20px 0 0 0">Tổng Tiền Hóa Đơn là:</h3>
+			<h3 style="margin: 20px 0 0 0">Tổng Tiền Hóa Đơn là: <%=tt %></h3>
 			<form action="" ">
 				<div style="padding-bottom: 20px">
 				Họ Tên: <input type="text" style="margin: 20px 0" value="<%=(session.getAttribute("khachhang") != null) ? kh.getTenkh() : ""%>"><br> 
@@ -79,13 +82,10 @@
 				Tên DN: <input type="text" style="margin-bottom: 20px" value="<%=(session.getAttribute("khachhang") != null) ? kh.getTendn() : ""%>"><br>
 				<h4 style="display: inline-block; margin: 0">Bạn có chăc muốn đặt hàng:</h4>
 				<%if(session.getAttribute("khachhang") != null){ %>
-	     		 <a href="hoadon?tt=yes">Yes</a>
-		  		or  
-				<a href="hoadon?tt=no">No</a>
+	     		 <a href="thanhtoanController?tt=yes">Yes</a>
 	      		<%}else {  
 	    		%>
 	    		<button>Yes</button>
-	    		<button>No</button>
 	    		<%} %>
 
 				<!-- <a href="hoadon?tt=yes">Yes</a>
@@ -96,5 +96,10 @@
 			
 		</div>
 	</center>
+	<%}else{ %>
+		<center>
+			<h2>Bạn Chưa Đặt Mua Sản Phẩm Nào <a href="trangchuController">Quay lại mua</a></h2>
+		</center>
+	<%}%>
 </body>
 </html>

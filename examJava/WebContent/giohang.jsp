@@ -56,22 +56,22 @@
 			<a class="navbar-brand" href="trangchuController">Shop LapTop</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class=""><a href="giohangController">Giỏ Hàng(<%=sl%>)</a></li>
-				<li><a href="thanhtoan.jsp">Thanh Toán</a></li>
-				<li><a href="hoadonMuahang.jsp">Lịch Sử Mua Hàng</a></li>
+				<li class=""><a href="<%=((session.getAttribute("khachhang") == null)?"khachhangController?dn=true":"htgio")%>">Giỏ Hàng(<%=sl%>)</a></li>
+				<li><a href="<%=((session.getAttribute("khachhang") == null)?"khachhangController?dn=true":"thanhtoanController")%>">Thanh Toán</a></li>
+				<li><a href="<%=((session.getAttribute("khachhang") == null)?"khachhangController?dn=true":"lichsuController")%>">Lịch Sử Mua Hàng</a></li>
 				<li class="dropdown dropbar">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><%=(session.getAttribute("khachhang") == null)?"Tài Khoản" : kh.getTenkh()%>
 					<ul class="dropdown-menu ">
 						<%if(session.getAttribute("khachhang") == null){ %><li><a href="khachhangController?dn=true">Đăng Nhập</a></li>
 						<li><a href="khachhangController?dk=true">Đăng Ký</a></li><%}else{ %>
 						<li><a href="thongtinKH.jsp">Thông Tin</a></li>
-						<li><a href="#">Đăng Xuất</a></li><%} %>
+						<li><a href="khachhangController?dx=true">Đăng Xuất</a></li><%} %>
 					</ul>
 				</li>
 			</ul>
 		</div>
 	</nav>
-	
+	<%if(sl > 0){ %>
 	<div style="width: 1200px; margin: 0px auto">	
 			<table style="width: 1200px;text-align: center;">
 				<tr>
@@ -104,16 +104,20 @@
 			</table>
 	</div>
 	<center>
-	   				<form id="checkxoa" action="action_gh" method="post" style="display: inline-block;">
-	   					<button style="margin-top: 20px">Xoá đã chọn</button>
-	   					<input type="text" value="true" name="xoaNsach" style="display: none;"></form>
-	   				<form action="action_gh?xoaAll=true" method="post" style="display: inline-block;">
-	   					<button style="margin: 20px 30px 0;">Trả lại toàn bộ</button></form>
-	   				<form action="trangchuController" method="post" style="display: inline-block;">
-	   					<button style="margin: 20px 30px 0;">Tiếp tục mua hàng</button></form>
-	   				<form action="hoadon" method="post" style="display: inline-block;">
-	   					<button style="margin-top: 20px">Thanh Toán</button></form>
-	   			</center>
-	
+		<form id="checkxoa" action="action_gh" method="post" style="display: inline-block;">
+			<button style="margin-top: 20px">Xoá đã chọn</button>
+			<input type="text" value="true" name="xoaNsach" style="display: none;"></form>
+		<form action="action_gh?xoaAll=true" method="post" style="display: inline-block;">
+			<button style="margin: 20px 30px 0;">Trả lại toàn bộ</button></form>
+		<form action="trangchuController" method="post" style="display: inline-block;">
+			<button style="margin: 20px 30px 0;">Tiếp tục mua hàng</button></form>
+		<form action="thanhtoanController" method="post" style="display: inline-block;">
+			<button style="margin-top: 20px">Thanh Toán</button></form>
+	</center>
+	<%}else{ %>
+		<center>
+			<h2>Bạn Chưa Đặt Mua Sản Phẩm Nào <a href="trangchuController">Quay lại mua</a></h2>
+		</center>
+	<%} %>
 </body>
 </html>

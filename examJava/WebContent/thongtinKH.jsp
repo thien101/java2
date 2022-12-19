@@ -51,16 +51,16 @@
 			<a class="navbar-brand" href="trangchuController">Shop LapTop</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class=""><a href="giohangController">Giỏ Hàng(<%=sl%>)</a></li>
-				<li><a href="thanhtoan.jsp">Thanh Toán</a></li>
-				<li><a href="hoadonMuahang.jsp">Lịch Sử Mua Hàng</a></li>
+				<li class=""><a href="<%=((session.getAttribute("khachhang") == null)?"khachhangController?dn=true":"htgio")%>">Giỏ Hàng(<%=sl%>)</a></li>
+				<li><a href="<%=((session.getAttribute("khachhang") == null)?"khachhangController?dn=true":"thanhtoanController")%>">Thanh Toán</a></li>
+				<li><a href="<%=((session.getAttribute("khachhang") == null)?"khachhangController?dn=true":"lichsuController")%>">Lịch Sử Mua Hàng</a></li>
 				<li class="dropdown dropbar">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><%=(session.getAttribute("khachhang") == null)?"Tài Khoản" : kh.getTenkh()%>
 					<ul class="dropdown-menu ">
 						<%if(session.getAttribute("khachhang") == null){ %><li><a href="khachhangController?dn=true">Đăng Nhập</a></li>
 						<li><a href="khachhangController?dk=true">Đăng Ký</a></li><%}else{ %>
 						<li><a href="thongtinKH.jsp">Thông Tin</a></li>
-						<li><a href="#">Đăng Xuất</a></li><%} %>
+						<li><a href="khachhangController?dx=true">Đăng Xuất</a></li><%} %>
 					</ul>
 				</li>
 			</ul>

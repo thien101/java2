@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -32,6 +33,49 @@ public class sanphamdao {
 			return null;
 		}
 	}
+	
+	public int them (sanphambean s) throws Exception {
+		CoSodao cs = new CoSodao();
+		cs.ketnoi();
+		
+		String sql = "insert into sanpham(tensp, mahang, image, tonkho, gia)\r\n"
+				+ "values(?, ?, ?, ?, ?)";
+		PreparedStatement cmd = cs.cn.prepareStatement(sql);
+		cmd.setString(1, s.getTensp());
+		cmd.setString(2, s.getMahang());
+		cmd.setString(3, s.getAnh());
+		cmd.setLong(4, s.getTonkho());
+		cmd.setLong(5, s.getGia());
+
+		return cmd.executeUpdate();
+	}
+	
+	public int sua (sanphambean s) throws Exception {
+		CoSodao cs = new CoSodao();
+		cs.ketnoi();
+		
+		String sql = "update sanpham\r\n"
+				+ "set tensp = ?, mahang = ?, tonkho = ?, gia = ?\r\n"
+				+ "where masp = ?";
+		PreparedStatement cmd = cs.cn.prepareStatement(sql);
+		cmd.setString(1, s.getTensp());
+		cmd.setString(2, s.getMahang());
+		cmd.setLong(3, s.getTonkho());
+		cmd.setLong(4, s.getGia());
+		cmd.setLong(5, s.getMasp());
+		return cmd.executeUpdate();
+	}
+	
+	public int xoa (long masp) throws Exception {
+		CoSodao cs = new CoSodao();
+		cs.ketnoi();
+		
+		String sql = "delete from sanpham where masp = ?";
+		PreparedStatement cmd = cs.cn.prepareStatement(sql);
+		cmd.setLong(1, masp);
+		return cmd.executeUpdate();
+	}
+	
 	public static void main(String[] args) {
 		sanphamdao spd = new sanphamdao();
 		for(sanphambean sp : spd.getsanpham()) {

@@ -11,10 +11,11 @@
 </head>
 
 <body>
+
 	<div class="container">
 		<div class="screen">
 			<div class="screen__content">
-				<form action="khachhangController?dn=true" class="login" method="post">
+				<form action="<%=(request.getParameter("admin") != null)? "adminController?dn=true":"khachhangController?dn=true" %>" class="login" method="post">
 					<div class="login__field">
 						<i class="login__icon fas fa-user"></i>
 						<input name="un" type="text" class="login__input" placeholder="Ten Dang Nhap">

@@ -37,7 +37,7 @@ public class addUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		if(request.getContentLength()<=0){
+		if(request.getContentLength() <= 0){
 			RequestDispatcher rd = request.getRequestDispatcher("upfile.jsp");
 			rd.forward(request, response);
 		}else {
@@ -45,9 +45,9 @@ public class addUser extends HttpServlet {
 			Part filePart = request.getPart("txtfile");
 			String fileName = filePart.getSubmittedFileName();
 			for (Part part : request.getParts()) {
-				part.write("C:\\Users\\Admin\\eclipse-workspace\\java\\WebContent\\image_sach\\" + fileName);
+				part.write("C:\\Users\\Admin\\eclipse-workspace\\examJava\\WebContent\\images\\" + fileName);
 			}
-			String anh = ".\\image_sach\\" + fileName;
+			String anh = ".\\images\\" + fileName;
 					
 			RequestDispatcher rd = request.getRequestDispatcher("upfile.jsp");
 			rd.forward(request, response);

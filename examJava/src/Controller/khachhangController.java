@@ -84,6 +84,15 @@ public class khachhangController extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("dangky.jsp");
 				rd.forward(request, response);
 			}
+			if(request.getParameter("dx") != null) {
+				ss.removeAttribute("khachhang");
+				ss.removeAttribute("slhang");
+				ss.removeAttribute("dshoadon");
+				ss.removeAttribute("chitietsp");
+				ss.removeAttribute("gh");
+				RequestDispatcher rd = request.getRequestDispatcher("trangchuController");
+				rd.forward(request, response);
+			}
 		}
 	}
 
