@@ -1,6 +1,8 @@
 package Controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import bean.adminbean;
+
 import bean.sanphambean;
 import bo.adminbo;
 import bo.hangbo;
@@ -22,10 +30,6 @@ import bo.sanphambo;
  * Servlet implementation class sanphamController
  */
 @WebServlet("/sanphamController")
-@MultipartConfig(
-		fileSizeThreshold = 1024 * 1024 *1,
-		maxFileSize = 1024 * 1024 * 10,
-		maxRequestSize = 1024 * 1024 *100)
 public class sanphamController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,25 +52,13 @@ public class sanphamController extends HttpServlet {
 		hangbo hb = new hangbo();
 		HttpSession ss= request.getSession();
 
-		if(request.getParameter("sua") != null || request.getParameter("xoa") != null || request.getParameter("them") != null) {
+		if(request.getParameter("xoa") != null || request.getParameter("sua") != null) {
 			sanphambean sp = (sanphambean)ss.getAttribute("sanpham");
 			String tensach = request.getParameter("txttensp");
 			String mahang = request.getParameter("txtmh");
 			long soluong = Long.parseLong(request.getParameter("txtsl"));
 			long gia = Long.parseLong(request.getParameter("txtgia"));
-			if(request.getParameter("them") != null) {
-				
-				
-				Part filePart = request.getPart("txtfile");
-				String fileName = filePart.getSubmittedFileName();
-				for (Part part : request.getParts()) {
-					part.write("C:\\Users\\Admin\\eclipse-workspace\\examJava\\WebContent\\images\\" + fileName);
-				}
-				String anh = ".\\images\\" + fileName;
-				spb.them_sach(new sanphambean(0, tensach, mahang, soluong, gia, anh));
-				
-			}
-			else if(request.getParameter("xoa") != null) {
+			if(request.getParameter("xoa") != null) {
 				spb.xoa_sach(sp.getMasp());
 				ss.removeAttribute("sanpham");
 			}
@@ -85,6 +77,8 @@ public class sanphamController extends HttpServlet {
 				
 			if(request.getParameter("chonsach") != null) {
 				ss.setAttribute("sanpham", spb.timkiem_msp(Long.parseLong(request.getParameter("masp").toString())));
+				RequestDispatcher rd = request.getRequestDispatcher("sanphamChange.jsp");
+				rd.forward(request, response);
 			}
 			
 		}

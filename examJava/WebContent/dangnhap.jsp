@@ -11,6 +11,9 @@
 </head>
 
 <body>
+	<%if(request.getParameter("check") != null && request.getParameter("check").toString().equals("false")){ %>
+		<script type="text/javascript">alert("Tài khoản hoặc mật khẩu không đúng")</script>
+	<% }%>
 
 	<div class="container">
 		<div class="screen">

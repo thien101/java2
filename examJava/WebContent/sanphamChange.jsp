@@ -114,67 +114,29 @@
 		</div>
 	</nav>
 	
-	<div style="width: 1326px; margin: 0px 20px;">
-		<center>
-			<form action="sanphamController?tk=true" method="post">
-				<input type="text" style="width: 600px" name="key">
-				<input type="submit" value="Tìm Kiếm"; style="padding: 0px 5px">
-			</form>
-		</center>
-	</div>
-	
-	<div class="wrap-layout" style="margin: 20px 0px;">
-		<%for(hangbean h : hang){ %>
-        <div class="wrap-layout__item"><a href="sanphamController?tk=true&mahang=<%=h.getMahang()%>"><%=h.getTenhang() %></a></div> <%} %>
-    </div> 
-	
-	<div style="width: 1300px; padding: 20px 0px; min-height: 525px; position: relative; margin-left: 28px;">
-		<div style="width: 800px; min-height: 525px;">
-			<table style="width: 800px; text-align: center;">
-				<tr style="width: 800px; border: 1px solid"><td style="width: 800px" colspan="5">Danh Sách Sản Phẩm</td></tr>
-				<tr>
-					<td style="width: 100px; border: 1px solid">Mã Sản Phẩm</td>
-					<td style="width: 400px; border: 1px solid">Tên Sản Phẩm</td>
-					<td style="width: 100px; border: 1px solid">Mã Hãng</td>
-					<td style="width: 100px; border: 1px solid">Tồn Kho</td>
-					<td style="width: 100px; border: 1px solid">Giá</td>
-				</tr>
-				<%
-				for(sanphambean sp : dssp){
-				%>
-				<tr>
-					<td style="width: 100px; border: 1px solid"><a href="sanphamController?chonsach=true&masp=<%=sp.getMasp()%>"><%=sp.getMasp() %></a></td>
-					<td style="width: 400px; border: 1px solid"><%=sp.getTensp() %></td>
-					<td style="width: 100px; border: 1px solid"><%=sp.getMahang() %></td>
-					<td style="width: 100px; border: 1px solid"><%=sp.getTonkho() %></td>
-					<td style="width: 100px; border: 1px solid"><%=sp.getGia() %></td>
-				</tr>
-				<%} %>
-			</table>
-		</div>
 		<%sanphambean sanpham = (session.getAttribute("sanpham")!=null)?(sanphambean)session.getAttribute("sanpham"): new sanphambean(); %>
-		<div style="width: 500px; position: absolute; right: 0; top: 0; min-height: 545px;
-		 display: flex; justify-content: center; margin-top: 20px;padding-left: 20px;">
-			<div style="width: 500px; min-height: 400px; position: relative;">
-				<div style="width: 500px; min-height: 400px; position: absolute; top: 0;">
-				<form action="themsanpham" enctype= "multipart/form-data" method="post">
+		<div style="width: 1349px;min-height: 525px;
+		 display: flex; justify-content: center; margin-top: 20px; align-items: center;">
+			<div style="width: 600px; min-height: 400px;">
+				<div style="width: 600px; min-height: 400px;">
+				<form action="sanphamController" method="get">
 						<%-- Mã Sản Phẩm: <input style="margin-bottom: 20px; margin-left: 14px; width: 370px; text-align: right;"
 						 type="text" name="txtmsp" value="<%=(session.getAttribute("sanpham")!=null)?sanpham.getMasp():""%>"> <br> --%>
 						 
-						Tên Sản Phẩm: <input style="margin-bottom: 20px; margin-left: 10px; width: 370px; text-align: right;"
+						Tên Sản Phẩm: <input style="margin-bottom: 20px; margin-left: 10px; width: 450px; text-align: right;"
 						 type="text" name="txttensp" value="<%=(session.getAttribute("sanpham")!=null)?sanpham.getTensp():""%>"> <br>
 						 
-						Mã Hãng: <input style="margin-bottom: 20px; margin-left: 46px; width: 370px; text-align: right;"
+						Mã Hãng: <input style="margin-bottom: 20px; margin-left: 46px; width: 450px; text-align: right;"
 						 type="text" name="txtmh" value="<%=(session.getAttribute("sanpham")!=null)?sanpham.getMahang():""%>"> <br>
 						 
-						Tồn Kho: <input style="margin-bottom: 20px; margin-left: 50px; width: 370px; text-align: right;"
+						Tồn Kho: <input style="margin-bottom: 20px; margin-left: 50px; width: 450px; text-align: right;"
 						 type="text" name="txtsl" value="<%=(session.getAttribute("sanpham")!=null)?sanpham.getTonkho():""%>"> <br>
 						 
-						Giá: <input style="margin-bottom: 20px; margin-left: 80px; width: 370px; text-align: right;"
+						Giá: <input style="margin-bottom: 20px; margin-left: 80px; width: 450px; text-align: right;"
 						 type="text" name="txtgia" value="<%=(session.getAttribute("sanpham")!=null)?sanpham.getGia():""%>"> <br>
 						 
-						file: <input type="file" name="txtfile"><br>
-					<input type="submit" name="them" value="Them" style="margin-top: 10px; margin-right: 32px; margin-left: 116px; padding: 4px 16px;"> 
+					<input type="submit" name="xoa" value="Xoa" style="margin-top: 10px; margin-right: 32px; margin-left: 138px; padding: 4px 28px;">
+					<input type="submit" name="sua" value="Sua" style="margin-left: 116px; padding: 4px 28px;"> 
 				</form> 
 			</div>
 			</div>

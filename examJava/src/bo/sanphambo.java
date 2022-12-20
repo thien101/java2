@@ -36,7 +36,7 @@ public class sanphambo {
 		return null;
 	}
 	
-	public void them_sach(sanphambean s) {
+	public void them_sp(sanphambean s) {
 		try {
 			spd.them(s);
 		} catch (Exception e) {
@@ -69,6 +69,6 @@ public class sanphambo {
 	
 	public static void main(String[] args) {
 		sanphambo spb = new sanphambo();
-		spb.them_sach(new sanphambean(0, "sadsd", "macbook", 50, 12000000, ""));
+		spb.them_sp(new sanphambean(0, "sadsd", "macbook", 50, 12000000, ""));
 	}
 }

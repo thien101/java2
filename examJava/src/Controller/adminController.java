@@ -73,7 +73,12 @@ public class adminController extends HttpServlet {
 			}
 			if(un != null && pass != null) {
 				if(request.getParameter("dn") != null) {
-					ss.setAttribute("admin", adb.ktdn(un, pass));
+					if(adb.ktdn(un, pass) != null) {
+						ss.setAttribute("admin", adb.ktdn(un, pass));
+					}else {
+						RequestDispatcher rd = request.getRequestDispatcher("dangnhap.jsp?admin=true&check=false");
+						rd.forward(request, response);
+					}
 				}
 			}else {
 				if(request.getParameter("dn") != null) {

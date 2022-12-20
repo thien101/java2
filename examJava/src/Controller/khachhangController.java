@@ -44,7 +44,13 @@ public class khachhangController extends HttpServlet {
 		}
 		if(un != null && pass != null) {
 			if(request.getParameter("dn") != null) {
-				ss.setAttribute("khachhang", khb.ktdn(un, pass));
+				if(khb.ktdn(un, pass) != null) {
+					ss.setAttribute("khachhang", khb.ktdn(un, pass));
+				}
+				else {
+					RequestDispatcher rd = request.getRequestDispatcher("dangnhap.jsp?check=false");
+					rd.forward(request, response);
+				}
 			}
 			
 			if(request.getParameter("dk") != null) {
@@ -77,7 +83,7 @@ public class khachhangController extends HttpServlet {
 			}
 				
 			if(request.getParameter("dn") != null) {
-				RequestDispatcher rd = request.getRequestDispatcher("dangnhap.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("dangnhap.jsp?");
 				rd.forward(request, response);
 			}
 			if(request.getParameter("dk") != null) {

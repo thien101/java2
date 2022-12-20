@@ -155,7 +155,11 @@
 						<div style="height: 22px"><%=sp.getMahang() %></div>
 						<div style="height: 22px"><%=sp.getTonkho() %></div>
 						<div style="height: 22px"><%=sp.getGia() %></div>
+						<%if(session.getAttribute("khachhang") != null){ %>
 						<a href="giohangController?masp=<%=sp.getMasp()%>&tensp=<%=sp.getTensp()%>&gia=<%=sp.getGia()%>">Dat Mua</a>
+						<%}else{ %>
+						<a href="khachhangController?dn=true">Dat Mua</a>
+						<%} %>
 					</div>
 				 </td>
 				 <% 

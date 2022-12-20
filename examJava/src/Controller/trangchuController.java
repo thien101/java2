@@ -46,7 +46,9 @@ public class trangchuController extends HttpServlet {
 		
 		//phan trang
 		int trang;
-		ss.setAttribute("trang", 1);
+		if(ss.getAttribute("trang") == null) {
+			ss.setAttribute("trang", 1);
+		}
 		if(request.getContentLength() != 0) {		
 			
 			if(request.getParameter("trang")!= null) {
@@ -62,6 +64,7 @@ public class trangchuController extends HttpServlet {
 			
 			if(request.getParameter("all") != null) {
 				ss.setAttribute("dssanpham", spb.getsanpham());
+				ss.setAttribute("trang", 1);
 			}
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("TrangChu.jsp");

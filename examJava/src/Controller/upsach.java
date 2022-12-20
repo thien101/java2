@@ -1,6 +1,8 @@
 package Controller;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,23 +10,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import bo.chitietxnhdbo;
-import bo.cthoadonbo;
-import bo.hoadonbo;
-import bo.xacnhanhdbo;
+import javax.servlet.http.Part;
 
 /**
- * Servlet implementation class xacnhanController
+ * Servlet implementation class upsach
  */
-@WebServlet("/xacnhanController")
-public class xacnhanController extends HttpServlet {
+@WebServlet("/upsach")
+public class upsach extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public xacnhanController() {
+    public upsach() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,17 +32,7 @@ public class xacnhanController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		xacnhanhdbo xnbo = new xacnhanhdbo();
-		chitietxnhdbo ctxnbo = new chitietxnhdbo();
-
-		hoadonbo hdb = new hoadonbo();
-		cthoadonbo cthdbo = new cthoadonbo();
-		long millis=System.currentTimeMillis();
-		java.sql.Date ngayduyet=new java.sql.Date(millis);
-		hdb.capnhap(Long.parseLong(request.getParameter("mahdxn")), ngayduyet);
-		request.setAttribute("dsxnhd", xnbo.getdshd());
-		RequestDispatcher rd = request.getRequestDispatcher("xacnhanHoaDon.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("upfile.jsp");
 		rd.forward(request, response);
 	}
 
@@ -53,7 +41,21 @@ public class xacnhanController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+			String id = "";
+			String name = "";
+			Part part = request.getPart("txtfile");
+			
+			String realPath = request.getServletContext().getRealPath("/images");
+			String fileName = Path.of(part.getSubmittedFileName()).getFileName().toString();
+			
+			if(!Files.exists(Path.of(realPath))) {
+				Files.createDirectories(Path.of(realPath));
+			}
+			part.write(realPath+"/" + fileName);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 }

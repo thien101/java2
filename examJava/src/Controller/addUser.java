@@ -1,58 +1,79 @@
 package Controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 /**
- * Servlet implementation class addUser
+ * Servlet implementation class tam123
  */
 @WebServlet("/addUser")
-@MultipartConfig(
-		fileSizeThreshold = 1024 * 1024 *1,
-		maxFileSize = 1024 * 1024 * 10,
-		maxRequestSize = 1024 * 1024 *100)
 public class addUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public addUser() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		if(request.getContentLength() <= 0){
-			RequestDispatcher rd = request.getRequestDispatcher("upfile.jsp");
-			rd.forward(request, response);
-		}else {
-
-			Part filePart = request.getPart("txtfile");
-			String fileName = filePart.getSubmittedFileName();
-			for (Part part : request.getParts()) {
-				part.write("C:\\Users\\Admin\\eclipse-workspace\\examJava\\WebContent\\images\\" + fileName);
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	if(request.getContentLength()<=0){
+		RequestDispatcher rd = request.getRequestDispatcher("upfile.jsp");
+		rd.forward(request, response);
+	}		
+	else {
+	
+	
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
+		ServletFileUpload upload = new ServletFileUpload(fileItemFactory);
+		String dirUrl1 = request.getServletContext().getRealPath("") +  File.separator + "images";
+		response.getWriter().println(dirUrl1);
+		try {
+			
+			List<FileItem> fileItems = upload.parseRequest(request);//Lấy về các đối tượng gửi lên
+			//duyệt qua các đối tượng gửi lên từ client gồm file và các control
+			for (FileItem fileItem : fileItems) {
+				if (!fileItem.isFormField()) {//Nếu ko phải các control=>upfile lên
+				// xử lý file
+				String nameimg = fileItem.getName();
+				if (!nameimg.equals("")) {
+			        //Lấy đường dẫn hiện tại, chủ ý xử lý trên dirUrl để có đường dẫn đúng
+					String dirUrl = request.getServletContext().getRealPath("") +  File.separator + "images";
+					File dir = new File(dirUrl);
+					if (!dir.exists()) {//nếu ko có thư mục thì tạo ra
+						dir.mkdir();
+					}
+				    String fileImg = dirUrl + File.separator + nameimg;
+				    File file = new File(fileImg);//tạo file
+				    try {
+				    	fileItem.write(file);//lưu file
+				    	} 
+				    catch (Exception e) {
+				    	e.printStackTrace();
+				    	}
+					}
+				}	
 			}
-			String anh = ".\\images\\" + fileName;
-					
-			RequestDispatcher rd = request.getRequestDispatcher("upfile.jsp");
-			rd.forward(request, response);
+		
+		} 
+		catch (FileUploadException e) {
+			e.printStackTrace();
 		}
 	}
+}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
