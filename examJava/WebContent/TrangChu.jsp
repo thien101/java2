@@ -131,10 +131,11 @@
     </div> 
 	
 	<div style="width: 1326px; margin: 0px 20px; padding: 20px 0px; min-height: 600px">
-		<table style="width: 1326px">
+		<%int trang = (session.getAttribute("trang") == null)?1:(int)session.getAttribute("trang");
+		if(n != 0){%>
+			<table style="width: 1326px">
 			<%
 			//Lay vi tri sach dau cuoi trong tung trang
-			int trang = (session.getAttribute("trang") == null)?1:(int)session.getAttribute("trang");
 			int start = (trang -1)*sls;
 				int end = trang *sls;
 				 if(trang  == n/sls +1){
@@ -155,10 +156,11 @@
 						<div style="height: 22px"><%=sp.getMahang() %></div>
 						<div style="height: 22px"><%=sp.getTonkho() %></div>
 						<div style="height: 22px"><%=sp.getGia() %></div>
-						<%if(session.getAttribute("khachhang") != null){ %>
-						<a href="giohangController?masp=<%=sp.getMasp()%>&tensp=<%=sp.getTensp()%>&gia=<%=sp.getGia()%>">Dat Mua</a>
+						<%if(session.getAttribute("khachhang") == null){ %>
+							<a href="khachhangController?dn=true">Dat Mua</a>
+							
 						<%}else{ %>
-						<a href="khachhangController?dn=true">Dat Mua</a>
+							<a href="giohangController?masp=<%=sp.getMasp()%>&tensp=<%=sp.getTensp()%>&gia=<%=sp.getGia()%>">Dat Mua</a>
 						<%} %>
 					</div>
 				 </td>
@@ -177,7 +179,12 @@
 						<div style="height: 22px"><%=sp.getMahang() %></div>
 						<div style="height: 22px"><%=sp.getTonkho() %></div>
 						<div style="height: 22px"><%=sp.getGia() %></div>
-						<a href="giohangController?masp=<%=sp.getMasp()%>&tensp=<%=sp.getTensp()%>&gia=<%=sp.getGia()%>">Dat Mua</a>
+						<%if(session.getAttribute("khachhang") == null){ %>
+							<a href="khachhangController?dn=true">Dat Mua</a>
+							
+						<%}else{ %>
+							<a href="giohangController?masp=<%=sp.getMasp()%>&tensp=<%=sp.getTensp()%>&gia=<%=sp.getGia()%>">Dat Mua</a>
+						<%} %>
 					 </div>
 				 </td>
 				 <%}
@@ -195,13 +202,23 @@
 						<div style="height: 22px"><%=sp.getMahang() %></div>
 						<div style="height: 22px"><%=sp.getTonkho() %></div>
 						<div style="height: 22px"><%=sp.getGia() %></div>
-						<a href="giohangController?masp=<%=sp.getMasp()%>&tensp=<%=sp.getTensp()%>&gia=<%=sp.getGia()%>">Dat Mua</a>
+						<%if(session.getAttribute("khachhang") == null){ %>
+							<a href="khachhangController?dn=true">Dat Mua</a>
+							
+						<%}else{ %>
+							<a href="giohangController?masp=<%=sp.getMasp()%>&tensp=<%=sp.getTensp()%>&gia=<%=sp.getGia()%>">Dat Mua</a>
+						<%} %>
 					 </div>
 				 </td>
 				 <%} %>
 			</tr>
 			<%} %>
 		</table>
+		<%}else{ %>
+			<h3 style="margin-top: 250px; margin-left: 345px">Không Tìm Thấy Hoặc Không Có Sản Phẩm Cần Tìm
+				<a href="trangchuController?all=true">Quay lại</a>
+			</h3>	
+		<%} %>
 	</div>
 	<center>
 		<div class="listpage" style="margin: 30px 0px 60px 0px; display: block; cursor: pointer;">

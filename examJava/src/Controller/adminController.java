@@ -87,10 +87,12 @@ public class adminController extends HttpServlet {
 				}
 				if(request.getParameter("dx") != null) {
 					ss.removeAttribute("admin");
+					ss.removeAttribute("trang");
+					ss.removeAttribute("dssanpham");
 				}
 			}
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("admin.jsp?isadmin=true");
 		rd.forward(request, response);
 	}
 

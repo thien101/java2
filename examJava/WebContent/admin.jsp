@@ -135,9 +135,11 @@
     </div> 
 	
 	<div style="width: 1326px; margin: 0px 20px; padding: 20px 0px; min-height: 525px">
-		<table style="width: 1326px">
+		<%int trang = (session.getAttribute("trang") == null)?1:(int)session.getAttribute("trang");
+		if(n != 0){%>
+			<table style="width: 1326px">
 			<%
-			int trang = (session.getAttribute("trang") == null)?1:(int)session.getAttribute("trang");
+			//Lay vi tri sach dau cuoi trong tung trang
 			int start = (trang -1)*sls;
 				int end = trang *sls;
 				 if(trang  == n/sls +1){
@@ -153,11 +155,12 @@
 					   		<img style="border-radius: 8px; width: 250px; height: 180px" src="<%=sp.getAnh() %>">
 					   	</div>
 					</center>
-					<div style="width: 300px; margin: 0px auto">
+					<div style="width: 285px; margin: 0px auto">
 						<div style="height: 38px"><%=sp.getTensp()%></div>
 						<div style="height: 22px"><%=sp.getMahang() %></div>
 						<div style="height: 22px"><%=sp.getTonkho() %></div>
 						<div style="height: 22px"><%=sp.getGia() %></div>
+						
 					</div>
 				 </td>
 				 <% 
@@ -170,11 +173,12 @@
 							<img style="border-radius: 8px; width: 250px; height: 180px" src="<%=sp.getAnh() %>">
 						</div>
 					 </center>
-					 <div style="width: 300px; margin: 0px auto; padding-bottom: 10px">
+					 <div style="width: 285px; margin: 0px auto; padding-bottom: 10px">
 						<div style="height: 38px"><%=sp.getTensp()%></div>
 						<div style="height: 22px"><%=sp.getMahang() %></div>
 						<div style="height: 22px"><%=sp.getTonkho() %></div>
 						<div style="height: 22px"><%=sp.getGia() %></div>
+						
 					 </div>
 				 </td>
 				 <%}
@@ -187,32 +191,38 @@
 							<img style="border-radius: 8px; width: 250px; height: 180px" src="<%=sp.getAnh() %>">
 						</div>
 					 </center>
-					 <div style="width: 300px; margin: 0px auto">
+					 <div style="width: 285px; margin: 0px auto">
 						<div style="height: 38px"><%=sp.getTensp()%></div>
 						<div style="height: 22px"><%=sp.getMahang() %></div>
 						<div style="height: 22px"><%=sp.getTonkho() %></div>
 						<div style="height: 22px"><%=sp.getGia() %></div>
+
 					 </div>
 				 </td>
 				 <%} %>
 			</tr>
 			<%} %>
 		</table>
+		<%}else{ %>
+			<h3 style="margin-top: 250px; margin-left: 345px">Không Tìm Thấy Hoặc Không Có Sản Phẩm Cần Tìm
+				<a href="<%=(request.getParameter("isadmin") != null) ? "adminController?all=true" : "trangchuController?all=true"%>">Quay lại</a>
+			</h3>	
+		<%} %>
 	</div>
 	
 	<center>
 		<div class="listpage" style="margin: 30px 0px 60px 0px; display: block; cursor: pointer;">
 		   	<ul style="padding: 0px">
 		   		<li class="giam" style="display: inline-block; cursor: pointer; padding: 0 10px">
-   					<a href="trangchuController?trang=<%=(trang-1)==0?trang:trang-1 %>" style="font-size: 16px"><%="<" %></a>
+   					<a href="adminController?trang=<%=(trang-1)==0?trang:trang-1 %>" style="font-size: 16px"><%="<" %></a>
    				</li>
 		   		<%for(int index = 1; index<=strang; index++){%>
 		   		<li class = "<%=(index == trang)?"active":"" %>" style="display: inline-block; cursor: pointer; padding: 4px 10px">
-		   			<a  href="trangchuController?trang=<%=index %>" style="font-size: 16px"><%=index %></a>
+		   			<a  href="adminController?trang=<%=index %>" style="font-size: 16px"><%=index %></a>
 		   		</li>
 		   		<%}%>
 		   		<li class="tang" style="display: inline-block; cursor: pointer; padding: 0 10px">
-   					<a href="trangchuController?trang=<%=(trang+1) > strang?trang:trang+1 %>" style="font-size: 16px"><%=">" %></a>
+   					<a href="adminController?trang=<%=(trang+1) > strang?trang:trang+1 %>" style="font-size: 16px"><%=">" %></a>
    				</li>
 		   	</ul>
 		</div>

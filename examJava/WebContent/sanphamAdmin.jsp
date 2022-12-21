@@ -96,7 +96,7 @@
 	<nav class="navbar navbar-inverse bar">
 		<div class="container-fluid">
 			<div class="navbar-header">
-			<a class="navbar-brand" href="adminController">Shop LapTop</a>
+			<a class="navbar-brand" href="adminController?all=true">Shop LapTop</a>
 			</div>
 			<ul class="nav navbar-nav">
 				<li class=""><a href="<%=(session.getAttribute("admin") != null)?"nhaccController":"adminController?dn=true"%>">Nhà Cung Cấp</a></li>
@@ -174,7 +174,7 @@
 						 type="text" name="txtgia" value="<%=(session.getAttribute("sanpham")!=null)?sanpham.getGia():""%>"> <br>
 						 
 						file: <input type="file" name="txtfile"><br>
-					<input type="submit" name="them" value="Them" style="margin-top: 10px; margin-right: 32px; margin-left: 116px; padding: 4px 16px;"> 
+					<input type="submit" name="them" value="Them" style="margin-top: 10px; margin-right: 32px; margin-left: 212px; padding: 4px 24px;"> 
 				</form> 
 			</div>
 			</div>

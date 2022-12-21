@@ -119,7 +119,7 @@
 		 display: flex; justify-content: center; margin-top: 20px; align-items: center;">
 			<div style="width: 600px; min-height: 400px;">
 				<div style="width: 600px; min-height: 400px;">
-				<form action="sanphamController" method="get">
+				<form action="sanphamController" method="post">
 						<%-- Mã Sản Phẩm: <input style="margin-bottom: 20px; margin-left: 14px; width: 370px; text-align: right;"
 						 type="text" name="txtmsp" value="<%=(session.getAttribute("sanpham")!=null)?sanpham.getMasp():""%>"> <br> --%>
 						 

@@ -17,7 +17,7 @@ public class sanphambo {
 		ArrayList<sanphambean> findsach = new ArrayList<sanphambean>();
 		//int n = dssach.size();
 		for(sanphambean sp : spd.getsanpham()) {
-			if(sp.getTensp().trim().contains(tk.toLowerCase().trim()) 
+			if(sp.getTensp().trim().toLowerCase().contains(tk.toLowerCase().trim()) 
 					|| sp.getMahang().toLowerCase().trim().contains(tk.toLowerCase().trim()))
 					{
 				findsach.add(sp);

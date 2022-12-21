@@ -92,6 +92,7 @@ public class khachhangController extends HttpServlet {
 			}
 			if(request.getParameter("dx") != null) {
 				ss.removeAttribute("khachhang");
+				ss.removeAttribute("trang");
 				ss.removeAttribute("slhang");
 				ss.removeAttribute("dshoadon");
 				ss.removeAttribute("chitietsp");
